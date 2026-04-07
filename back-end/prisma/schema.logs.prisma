@@ -1,0 +1,20 @@
+// schema.logs.prisma
+// Banco de dados secundário — armazena logs de ações do sistema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client-logs"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_LOGS_URL")
+}
+
+model Log {
+  id        String   @id @default(uuid())
+  descricao String
+  data      DateTime @default(now())
+
+  @@map("logs")
+}

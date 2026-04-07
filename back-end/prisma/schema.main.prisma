@@ -1,0 +1,23 @@
+// schema.main.prisma
+// Banco de dados principal — armazena as tarefas
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client-main"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_MAIN_URL")
+}
+
+model Tarefa {
+  id          String    @id @default(uuid())
+  titulo      String
+  descricao   String?
+  concluida   Boolean   @default(false)
+  dataCriacao DateTime  @default(now())
+  dataLimite  DateTime?
+
+  @@map("tarefas")
+}

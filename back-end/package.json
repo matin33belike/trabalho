@@ -1,0 +1,24 @@
+{
+  "name": "task-manager",
+  "version": "1.0.0",
+  "description": "Gerenciador de Tarefas - Back-end com Node.js, Express e Prisma",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "prisma:generate": "prisma generate --schema=prisma/schema.main.prisma && prisma generate --schema=prisma/schema.logs.prisma",
+    "prisma:migrate:main": "prisma migrate dev --schema=prisma/schema.main.prisma --name init",
+    "prisma:migrate:logs": "prisma migrate dev --schema=prisma/schema.logs.prisma --name init",
+    "prisma:migrate": "npm run prisma:migrate:main && npm run prisma:migrate:logs",
+    "setup": "npm install && npm run prisma:generate && npm run prisma:migrate"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.19.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0",
+    "prisma": "^6.19.3"
+  }
+}
