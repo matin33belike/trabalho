@@ -1,12 +1,5 @@
-// src/controllers/tarefaController.js
-// Responsável por tratar requisições HTTP e delegar ao service
-
 const tarefaService = require("../services/tarefaService");
 
-/**
- * POST /tarefas
- * Cria uma nova tarefa.
- */
 async function criar(req, res) {
   try {
     const { titulo, descricao, dataLimite } = req.body;
@@ -21,6 +14,7 @@ async function criar(req, res) {
       titulo: titulo.trim(),
       descricao,
       dataLimite,
+      userId: req.usuario.id, // injetado pelo middleware autenticar
     });
 
     return res.status(201).json(tarefa);
@@ -30,13 +24,9 @@ async function criar(req, res) {
   }
 }
 
-/**
- * GET /tarefas
- * Lista todas as tarefas.
- */
 async function listar(req, res) {
   try {
-    const tarefas = await tarefaService.listarTarefas();
+    const tarefas = await tarefaService.listarTarefas(req.usuario.id);
     return res.status(200).json(tarefas);
   } catch (error) {
     console.error("[TarefaController] Erro ao listar tarefas:", error.message);
@@ -44,10 +34,6 @@ async function listar(req, res) {
   }
 }
 
-/**
- * PUT /tarefas/:id
- * Atualiza uma ou mais propriedades de uma tarefa.
- */
 async function atualizar(req, res) {
   try {
     const { id } = req.params;
@@ -70,10 +56,16 @@ async function atualizar(req, res) {
         .json({ erro: "O campo 'concluida' deve ser um booleano (true/false)." });
     }
 
-    const tarefa = await tarefaService.atualizarTarefa(id, camposPermitidos);
+    const tarefa = await tarefaService.atualizarTarefa(
+      id,
+      camposPermitidos,
+      req.usuario.id
+    );
 
-    if (!tarefa) {
-      return res.status(404).json({ erro: "Tarefa não encontrada." });
+    if (tarefa === null) {
+      return res
+        .status(404)
+        .json({ erro: "Tarefa não encontrada ou sem permissão." });
     }
 
     return res.status(200).json(tarefa);
@@ -83,20 +75,20 @@ async function atualizar(req, res) {
   }
 }
 
-/**
- * DELETE /tarefas/:id
- * Remove uma tarefa pelo ID.
- */
 async function deletar(req, res) {
   try {
     const { id } = req.params;
-    const tarefa = await tarefaService.deletarTarefa(id);
+    const tarefa = await tarefaService.deletarTarefa(id, req.usuario.id);
 
-    if (!tarefa) {
-      return res.status(404).json({ erro: "Tarefa não encontrada." });
+    if (tarefa === null) {
+      return res
+        .status(404)
+        .json({ erro: "Tarefa não encontrada ou sem permissão." });
     }
 
-    return res.status(200).json({ mensagem: "Tarefa removida com sucesso.", tarefa });
+    return res
+      .status(200)
+      .json({ mensagem: "Tarefa removida com sucesso.", tarefa });
   } catch (error) {
     console.error("[TarefaController] Erro ao deletar tarefa:", error.message);
     return res.status(500).json({ erro: "Erro interno ao deletar tarefa." });

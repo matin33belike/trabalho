@@ -1,11 +1,7 @@
-// src/services/logService.js
-// Responsável por registrar logs no banco secundário
-
 const prismaLogs = require("../prisma/logsClient");
 
 /**
- * Registra uma entrada de log no banco de dados de logs.
- * @param {string} descricao - Descrição da ação realizada
+ * @param {string} descricao 
  */
 async function registrarLog(descricao) {
   try {
@@ -13,7 +9,6 @@ async function registrarLog(descricao) {
       data: { descricao },
     });
   } catch (error) {
-    // Falha no log não deve interromper o fluxo principal
     console.error("[LogService] Falha ao registrar log:", error.message);
   }
 }

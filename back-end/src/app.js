@@ -1,32 +1,32 @@
-// src/app.js
-// Configuração central do Express
-
 const express = require("express");
+const cors = require("cors");
+const { toNodeHandler } = require("better-auth/node");
+const auth = require("./lib/auth");
 const tarefaRoutes = require("./routes/tarefaRoutes");
 
 const app = express();
 
-// Middleware para parse de JSON
-app.use(express.json());
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL || "http://localhost:5173",
+    credentials: true, // necessário para cookies de sessão
+  })
+);
 
-// Rota de health check
+app.all("/api/auth/*", toNodeHandler(auth));
+app.use(express.json());
 app.get("/", (req, res) => {
   res.json({
     status: "online",
     mensagem: "API Gerenciador de Tarefas está funcionando.",
-    versao: "1.0.0",
+    versao: "2.0.0",
+    auth: "Better Auth",
   });
 });
-
-// Rotas da API
 app.use("/tarefas", tarefaRoutes);
-
-// Middleware para rotas não encontradas
 app.use((req, res) => {
   res.status(404).json({ erro: `Rota '${req.path}' não encontrada.` });
 });
-
-// Middleware global de tratamento de erros
 app.use((err, req, res, next) => {
   console.error("[App] Erro não tratado:", err);
   res.status(500).json({ erro: "Erro interno inesperado no servidor." });

@@ -1,47 +1,32 @@
-// src/services/tarefaService.js
-// Contém toda a lógica de negócio relacionada às tarefas
-
 const prismaMain = require("../prisma/mainClient");
 const { registrarLog } = require("./logService");
 
-/**
- * Cria uma nova tarefa no banco principal e registra log.
- * @param {object} dados - Dados da tarefa (titulo, descricao, dataLimite)
- * @returns {Promise<object>} Tarefa criada
- */
-async function criarTarefa({ titulo, descricao, dataLimite }) {
+async function criarTarefa({ titulo, descricao, dataLimite, userId }) {
   const tarefa = await prismaMain.tarefa.create({
     data: {
       titulo,
       descricao: descricao ?? null,
       dataLimite: dataLimite ? new Date(dataLimite) : null,
+      userId,
     },
   });
 
-  await registrarLog(`Tarefa criada: "${tarefa.titulo}" (ID: ${tarefa.id})`);
+  await registrarLog(`Tarefa criada: "${tarefa.titulo}" (ID: ${tarefa.id}) por user ${userId}`);
 
   return tarefa;
 }
 
-/**
- * Retorna todas as tarefas cadastradas.
- * @returns {Promise<object[]>} Lista de tarefas
- */
-async function listarTarefas() {
+async function listarTarefas(userId) {
   return prismaMain.tarefa.findMany({
+    where: { userId },
     orderBy: { dataCriacao: "desc" },
   });
 }
 
-/**
- * Atualiza os campos fornecidos de uma tarefa existente.
- * @param {string} id - UUID da tarefa
- * @param {object} dados - Campos a atualizar
- * @returns {Promise<object>} Tarefa atualizada
- */
-async function atualizarTarefa(id, { titulo, descricao, concluida, dataLimite }) {
-  // Verifica se a tarefa existe antes de tentar atualizar
-  const existe = await prismaMain.tarefa.findUnique({ where: { id } });
+async function atualizarTarefa(id, { titulo, descricao, concluida, dataLimite }, userId) {
+  const existe = await prismaMain.tarefa.findFirst({
+    where: { id, userId },
+  });
   if (!existe) return null;
 
   const dadosAtualizados = {};
@@ -72,18 +57,15 @@ async function atualizarTarefa(id, { titulo, descricao, concluida, dataLimite })
   return tarefa;
 }
 
-/**
- * Remove uma tarefa pelo ID.
- * @param {string} id - UUID da tarefa
- * @returns {Promise<object|null>} Tarefa removida ou null se não encontrada
- */
-async function deletarTarefa(id) {
-  const existe = await prismaMain.tarefa.findUnique({ where: { id } });
+async function deletarTarefa(id, userId) {
+  const existe = await prismaMain.tarefa.findFirst({
+    where: { id, userId },
+  });
   if (!existe) return null;
 
   const tarefa = await prismaMain.tarefa.delete({ where: { id } });
 
-  await registrarLog(`Tarefa removida: "${tarefa.titulo}" (ID: ${id})`);
+  await registrarLog(`Tarefa removida: "${tarefa.titulo}" (ID: ${id}) por user ${userId}`);
 
   return tarefa;
 }

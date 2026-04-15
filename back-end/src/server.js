@@ -1,6 +1,3 @@
-// src/server.js
-// Ponto de entrada da aplicação — inicializa o servidor
-
 require("dotenv").config();
 
 const app = require("./app");
@@ -11,7 +8,6 @@ const PORT = process.env.PORT || 3000;
 
 async function iniciar() {
   try {
-    // Verifica conexão com ambos os bancos antes de subir o servidor
     await prismaMain.$connect();
     console.log("[DB] Banco principal conectado com sucesso.");
 
@@ -27,8 +23,6 @@ async function iniciar() {
     process.exit(1);
   }
 }
-
-// Encerramento gracioso ao receber sinal do sistema
 async function encerrar(sinal) {
   console.log(`\n[Server] Sinal ${sinal} recebido. Encerrando...`);
   await prismaMain.$disconnect();
