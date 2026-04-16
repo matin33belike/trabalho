@@ -1,0 +1,11 @@
+Cadastrar usuário
+POST http://localhost:3000/api/auth/sign-up/email
+
+Fazer login
+POST http://localhost:3000/api/auth/sign-in/email
+
+Criar tarefa
+POST http://localhost:3000/tarefas
+
+Listar tarefas
+GET http://localhost:3000/tarefas
