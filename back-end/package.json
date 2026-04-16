@@ -4,6 +4,7 @@
   "description": "Gerenciador de Tarefas - Back-end com Node.js, Express e Prisma",
   "main": "src/server.js",
   "scripts": {
+    "postinstall": "prisma generate --schema=prisma/schema.main.prisma && prisma generate --schema=prisma/schema.logs.prisma",
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
     "prisma:generate": "prisma generate --schema=prisma/schema.main.prisma && prisma generate --schema=prisma/schema.logs.prisma",

@@ -14,7 +14,7 @@ async function criar(req, res) {
       titulo: titulo.trim(),
       descricao,
       dataLimite,
-      userId: req.usuario.id, // injetado pelo middleware autenticar
+      userId: req.usuario.id
     });
 
     return res.status(201).json(tarefa);

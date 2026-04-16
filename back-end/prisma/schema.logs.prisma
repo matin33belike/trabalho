@@ -1,6 +1,3 @@
-// schema.logs.prisma
-// Banco de dados secundário — armazena logs de ações do sistema
-
 generator client {
   provider = "prisma-client-js"
   output   = "../node_modules/.prisma/client-logs"

@@ -16,7 +16,6 @@ model Tarefa {
   dataCriacao DateTime  @default(now())
   dataLimite  DateTime?
 
-  // Relacionamento com o usuário dono da tarefa
   userId      String
   user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
