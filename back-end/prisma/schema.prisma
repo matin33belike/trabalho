@@ -1,5 +1,7 @@
+
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -7,66 +9,94 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String    @id
+  username      String    @unique
   email         String    @unique
-  name          String?
+  passwordHash  String
+  lists         List[]
+  name          String
   emailVerified Boolean   @default(false)
   image         String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   sessions      Session[]
   accounts      Account[]
-  
-  tasks         Task[]    
 
-  @@map("users")
+  @@map("user")
+}
+
+model Category {
+  id    String @id @default(uuid())
+  name  String @unique
+  tasks Task[]
+}
+
+model List {
+  id     String @id @default(uuid())
+  name   String
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tasks  Task[]
+}
+
+model Task {
+  id          String    @id @default(uuid())
+  listId      String
+  categoryId  String?
+  title       String
+  description String?
+  dueDate     DateTime?
+  priority    Int       @default(1)
+  completed   Boolean   @default(false)
+
+  list     List      @relation(fields: [listId], references: [id], onDelete: Cascade)
+  category Category? @relation(fields: [categoryId], references: [id])
 }
 
 model Session {
-  id        String   @id @default(cuid())
+  id        String   @id
   expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   ipAddress String?
   userAgent String?
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@map("sessions")
+  @@unique([token])
+  @@index([userId])
+  @@map("session")
 }
 
 model Account {
-  id           String    @id @default(cuid())
-  accountId    String
-  providerId   String
-  userId       String
-  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  accessToken  String?
-  refreshToken String?
-  idToken      String?
-  expiresAt    DateTime?
-  password     String? 
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
 
-  @@map("accounts")
+  @@index([userId])
+  @@map("account")
 }
 
 model Verification {
-  id         String   @id @default(cuid())
+  id         String   @id
   identifier String
   value      String
   expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
-  @@map("verifications")
-}
-
-model Task {
-  id          String   @id @default(cuid())
-  title       String
-  description String?
-  time        DateTime // Tempo/Data da tarefa
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@map("tasks")
+  @@index([identifier])
+  @@map("verification")
 }
