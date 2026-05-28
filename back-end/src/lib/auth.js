@@ -8,6 +8,12 @@ export const auth = betterAuth({
     provider: "postgresql", 
   }),
 
+  baseURL: process.env.BETTER_AUTH_URL || "http://localhost:5501",
+
+  trustedOrigins: [
+    process.env.FRONTEND_URL || "http://localhost:5173",
+  ],
+
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: false,

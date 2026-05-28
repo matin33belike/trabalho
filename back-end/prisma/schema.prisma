@@ -10,9 +10,7 @@ datasource db {
 
 model User {
   id            String    @id
-  username      String    @unique
   email         String    @unique
-  passwordHash  String
   lists         List[]
   name          String
   emailVerified Boolean   @default(false)
