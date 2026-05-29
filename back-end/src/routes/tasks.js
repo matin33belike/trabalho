@@ -1,60 +1,88 @@
-import express from "express";
-import cors from "cors";
-import { auth } from "./lib/auth.js"
-import dotenv from "dotenv";
-import { toNodeHandler } from "better-auth/node";
-import listsRouter from "./routes/lists.js";
-import tasksRouter from "./routes/tasks.js";
-import categoriesRouter from "./routes/categories.js";
-import { requireAuth } from "./middleware/requireAuth.js";
+import { Router } from "express";
+import { prisma } from "../lib/prisma.js";
+import { requireAuth } from "../middleware/requireAuth.js";
 
-dotenv.config();
+const router = Router();
 
-const app = express();
-const PORT = process.env.PORT || 5501;
+router.get("/", requireAuth, async (req, res) => {
+  const { listId } = req.query;
 
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:5173",
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    credentials: true,
-  })
-);
+  const where = { list: { userId: req.user.id } };
+  if (listId) where.listId = listId;
 
-app.all("/api/auth/*path", toNodeHandler(auth));
-
-app.use(express.json());
-
-app.get("/api/me", requireAuth, (req, res) => {
-  res.json({
-    message: "Bem-vindo ao seu perfil!",
-    user: req.user,
+  const tasks = await prisma.task.findMany({
+    where,
+    include: { category: true },
   });
+
+  res.json(tasks);
 });
 
-app.use("/api/lists", listsRouter);
-app.use("/api/tasks", tasksRouter);
-app.use("/api/categories", categoriesRouter);
+router.get("/:id", requireAuth, async (req, res) => {
+  const task = await prisma.task.findFirst({
+    where: { id: req.params.id, list: { userId: req.user.id } },
+    include: { category: true },
+  });
 
-app.get("/health", (req, res) => {
-  res.json({ status: "OK", timestamp: new Date().toISOString() });
+  if (!task) return res.status(404).json({ error: "Tarefa não encontrada." });
+  res.json(task);
 });
 
-app.get("/", (req, res) => {
-  res.json({
-    message: "Ta rodando!",
-    version: "1.0.0",
-    endpoints: {
-      health: "/health",
-      me: "/api/me",
-      auth: "/api/auth",
-      lists: "/api/lists",
-      tasks: "/api/tasks",
-      categories: "/api/categories",
+router.post("/", requireAuth, async (req, res) => {
+  const { listId, title, description, dueDate, priority, categoryId } = req.body;
+
+  if (!listId || !title) {
+    return res.status(400).json({ error: "Os campos 'listId' e 'title' são obrigatórios." });
+  }
+
+  const list = await prisma.list.findFirst({
+    where: { id: listId, userId: req.user.id },
+  });
+
+  if (!list) return res.status(404).json({ error: "Lista não encontrada." });
+
+  const task = await prisma.task.create({
+    data: {
+      listId,
+      title,
+      description,
+      dueDate: dueDate ? new Date(dueDate) : undefined,
+      priority: priority ?? 1,
+      categoryId: categoryId ?? null,
     },
+    include: { category: true },
   });
+
+  res.status(201).json(task);
 });
 
-app.listen(PORT, () => {
-  console.log(`Servidor em http://localhost:${PORT}`);
+router.put("/:id", requireAuth, async (req, res) => {
+  const { title, description, dueDate, priority, completed, categoryId } = req.body;
+
+  const existing = await prisma.task.findFirst({
+    where: { id: req.params.id, list: { userId: req.user.id } },
+  });
+
+  if (!existing) return res.status(404).json({ error: "Tarefa não encontrada." });
+
+  const task = await prisma.task.update({
+    where: { id: req.params.id },
+    data: { title, description, dueDate: dueDate ? new Date(dueDate) : undefined, priority, completed, categoryId },
+    include: { category: true },
+  });
+
+  res.json(task);
 });
+
+router.delete("/:id", requireAuth, async (req, res) => {
+  const existing = await prisma.task.findFirst({
+    where: { id: req.params.id, list: { userId: req.user.id } },
+  });
+
+  if (!existing) return res.status(404).json({ error: "Tarefa não encontrada." });
+
+  await prisma.task.delete({ where: { id: req.params.id } });
+  res.status(204).send();
+});
+
+export default router;
