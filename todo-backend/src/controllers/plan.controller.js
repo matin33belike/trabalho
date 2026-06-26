@@ -1,12 +1,10 @@
 import * as PlanModel from "../models/plan.model.js";
 
-// GET /api/plans
 export async function listar(req, res) {
   const planos = await PlanModel.listarPlanos();
   return res.json(planos);
 }
 
-// GET /api/plans/:id
 export async function buscar(req, res) {
   const id = req.params.id;
   const plano = await PlanModel.buscarPlanoPorId(id);
@@ -16,7 +14,6 @@ export async function buscar(req, res) {
   return res.json(plano);
 }
 
-// POST /api/plans
 export async function criar(req, res) {
   const { name, price, maxTasks } = req.body;
 
@@ -46,7 +43,6 @@ export async function atualizar(req, res) {
   return res.json(atualizado);
 }
 
-// DELETE /api/plans/:id
 export async function deletar(req, res) {
   const id = req.params.id;
 

@@ -1,6 +1,5 @@
 import * as TaskModel from "../models/task.model.js";
 
-// POST /api/tasks
 export async function criar(req, res) {
   const { title, description } = req.body;
   const userId = req.user.id;
@@ -17,7 +16,6 @@ export async function criar(req, res) {
   return res.status(201).json(tarefa);
 }
 
-// GET /api/tasks
 export async function listar(req, res) {
   const userId = req.user.id;
   const { status } = req.query; // ?status=pending ou ?status=completed
@@ -26,14 +24,12 @@ export async function listar(req, res) {
   return res.json(tarefas);
 }
 
-// GET /api/tasks/stats
 export async function stats(req, res) {
   const userId = req.user.id;
   const contagem = await TaskModel.contarTarefas(userId);
   return res.json(contagem);
 }
 
-// PUT /api/tasks/:id
 export async function atualizar(req, res) {
   const { id } = req.params;
   const { title, description } = req.body;
@@ -56,7 +52,6 @@ export async function atualizar(req, res) {
   return res.json(atualizada);
 }
 
-// PATCH /api/tasks/:id/status
 export async function alterarStatus(req, res) {
   const { id } = req.params;
   const { status } = req.body;
@@ -81,7 +76,6 @@ export async function alterarStatus(req, res) {
   return res.json(atualizada);
 }
 
-// DELETE /api/tasks/:id
 export async function deletar(req, res) {
   const { id } = req.params;
   const userId = req.user.id;

@@ -386,8 +386,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   Plan: 'Plan',
   User: 'User',
-  ShortLink: 'ShortLink',
-  ClickTrack: 'ClickTrack',
+  Task: 'Task',
   Report: 'Report',
   Session: 'Session',
   Account: 'Account',
@@ -407,7 +406,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "plan" | "user" | "shortLink" | "clickTrack" | "report" | "session" | "account" | "verification"
+    modelProps: "plan" | "user" | "task" | "report" | "session" | "account" | "verification"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -559,151 +558,77 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    ShortLink: {
-      payload: Prisma.$ShortLinkPayload<ExtArgs>
-      fields: Prisma.ShortLinkFieldRefs
+    Task: {
+      payload: Prisma.$TaskPayload<ExtArgs>
+      fields: Prisma.TaskFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.ShortLinkFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortLinkPayload> | null
+          args: Prisma.TaskFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TaskPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.ShortLinkFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortLinkPayload>
+          args: Prisma.TaskFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TaskPayload>
         }
         findFirst: {
-          args: Prisma.ShortLinkFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortLinkPayload> | null
+          args: Prisma.TaskFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TaskPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.ShortLinkFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortLinkPayload>
+          args: Prisma.TaskFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TaskPayload>
         }
         findMany: {
-          args: Prisma.ShortLinkFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortLinkPayload>[]
+          args: Prisma.TaskFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TaskPayload>[]
         }
         create: {
-          args: Prisma.ShortLinkCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortLinkPayload>
+          args: Prisma.TaskCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TaskPayload>
         }
         createMany: {
-          args: Prisma.ShortLinkCreateManyArgs<ExtArgs>
+          args: Prisma.TaskCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.ShortLinkCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortLinkPayload>[]
+          args: Prisma.TaskCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TaskPayload>[]
         }
         delete: {
-          args: Prisma.ShortLinkDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortLinkPayload>
+          args: Prisma.TaskDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TaskPayload>
         }
         update: {
-          args: Prisma.ShortLinkUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortLinkPayload>
+          args: Prisma.TaskUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TaskPayload>
         }
         deleteMany: {
-          args: Prisma.ShortLinkDeleteManyArgs<ExtArgs>
+          args: Prisma.TaskDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.ShortLinkUpdateManyArgs<ExtArgs>
+          args: Prisma.TaskUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.ShortLinkUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortLinkPayload>[]
+          args: Prisma.TaskUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TaskPayload>[]
         }
         upsert: {
-          args: Prisma.ShortLinkUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortLinkPayload>
+          args: Prisma.TaskUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TaskPayload>
         }
         aggregate: {
-          args: Prisma.ShortLinkAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateShortLink>
+          args: Prisma.TaskAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTask>
         }
         groupBy: {
-          args: Prisma.ShortLinkGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ShortLinkGroupByOutputType>[]
+          args: Prisma.TaskGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TaskGroupByOutputType>[]
         }
         count: {
-          args: Prisma.ShortLinkCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ShortLinkCountAggregateOutputType> | number
-        }
-      }
-    }
-    ClickTrack: {
-      payload: Prisma.$ClickTrackPayload<ExtArgs>
-      fields: Prisma.ClickTrackFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.ClickTrackFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClickTrackPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.ClickTrackFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClickTrackPayload>
-        }
-        findFirst: {
-          args: Prisma.ClickTrackFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClickTrackPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.ClickTrackFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClickTrackPayload>
-        }
-        findMany: {
-          args: Prisma.ClickTrackFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClickTrackPayload>[]
-        }
-        create: {
-          args: Prisma.ClickTrackCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClickTrackPayload>
-        }
-        createMany: {
-          args: Prisma.ClickTrackCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.ClickTrackCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClickTrackPayload>[]
-        }
-        delete: {
-          args: Prisma.ClickTrackDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClickTrackPayload>
-        }
-        update: {
-          args: Prisma.ClickTrackUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClickTrackPayload>
-        }
-        deleteMany: {
-          args: Prisma.ClickTrackDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.ClickTrackUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.ClickTrackUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClickTrackPayload>[]
-        }
-        upsert: {
-          args: Prisma.ClickTrackUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClickTrackPayload>
-        }
-        aggregate: {
-          args: Prisma.ClickTrackAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateClickTrack>
-        }
-        groupBy: {
-          args: Prisma.ClickTrackGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ClickTrackGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.ClickTrackCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ClickTrackCountAggregateOutputType> | number
+          args: Prisma.TaskCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TaskCountAggregateOutputType> | number
         }
       }
     }
@@ -1046,8 +971,7 @@ export const PlanScalarFieldEnum = {
   id: 'id',
   name: 'name',
   price: 'price',
-  maxLinks: 'maxLinks',
-  maxClicks: 'maxClicks'
+  maxTasks: 'maxTasks'
 } as const
 
 export type PlanScalarFieldEnum = (typeof PlanScalarFieldEnum)[keyof typeof PlanScalarFieldEnum]
@@ -1067,26 +991,17 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-export const ShortLinkScalarFieldEnum = {
+export const TaskScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  originalUrl: 'originalUrl',
-  shortCode: 'shortCode',
-  createdAt: 'createdAt'
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  createdAt: 'createdAt',
+  completedAt: 'completedAt'
 } as const
 
-export type ShortLinkScalarFieldEnum = (typeof ShortLinkScalarFieldEnum)[keyof typeof ShortLinkScalarFieldEnum]
-
-
-export const ClickTrackScalarFieldEnum = {
-  id: 'id',
-  shortLinkId: 'shortLinkId',
-  clickedAt: 'clickedAt',
-  referrer: 'referrer',
-  userAgent: 'userAgent'
-} as const
-
-export type ClickTrackScalarFieldEnum = (typeof ClickTrackScalarFieldEnum)[keyof typeof ClickTrackScalarFieldEnum]
+export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
 
 
 export const ReportScalarFieldEnum = {
@@ -1394,8 +1309,7 @@ export type PrismaClientOptions = ({
 export type GlobalOmitConfig = {
   plan?: Prisma.PlanOmit
   user?: Prisma.UserOmit
-  shortLink?: Prisma.ShortLinkOmit
-  clickTrack?: Prisma.ClickTrackOmit
+  task?: Prisma.TaskOmit
   report?: Prisma.ReportOmit
   session?: Prisma.SessionOmit
   account?: Prisma.AccountOmit

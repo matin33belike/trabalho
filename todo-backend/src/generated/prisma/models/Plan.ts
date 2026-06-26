@@ -28,76 +28,66 @@ export type AggregatePlan = {
 
 export type PlanAvgAggregateOutputType = {
   price: runtime.Decimal | null
-  maxLinks: number | null
-  maxClicks: number | null
+  maxTasks: number | null
 }
 
 export type PlanSumAggregateOutputType = {
   price: runtime.Decimal | null
-  maxLinks: number | null
-  maxClicks: number | null
+  maxTasks: number | null
 }
 
 export type PlanMinAggregateOutputType = {
   id: string | null
   name: string | null
   price: runtime.Decimal | null
-  maxLinks: number | null
-  maxClicks: number | null
+  maxTasks: number | null
 }
 
 export type PlanMaxAggregateOutputType = {
   id: string | null
   name: string | null
   price: runtime.Decimal | null
-  maxLinks: number | null
-  maxClicks: number | null
+  maxTasks: number | null
 }
 
 export type PlanCountAggregateOutputType = {
   id: number
   name: number
   price: number
-  maxLinks: number
-  maxClicks: number
+  maxTasks: number
   _all: number
 }
 
 
 export type PlanAvgAggregateInputType = {
   price?: true
-  maxLinks?: true
-  maxClicks?: true
+  maxTasks?: true
 }
 
 export type PlanSumAggregateInputType = {
   price?: true
-  maxLinks?: true
-  maxClicks?: true
+  maxTasks?: true
 }
 
 export type PlanMinAggregateInputType = {
   id?: true
   name?: true
   price?: true
-  maxLinks?: true
-  maxClicks?: true
+  maxTasks?: true
 }
 
 export type PlanMaxAggregateInputType = {
   id?: true
   name?: true
   price?: true
-  maxLinks?: true
-  maxClicks?: true
+  maxTasks?: true
 }
 
 export type PlanCountAggregateInputType = {
   id?: true
   name?: true
   price?: true
-  maxLinks?: true
-  maxClicks?: true
+  maxTasks?: true
   _all?: true
 }
 
@@ -191,8 +181,7 @@ export type PlanGroupByOutputType = {
   id: string
   name: string
   price: runtime.Decimal
-  maxLinks: number
-  maxClicks: number
+  maxTasks: number
   _count: PlanCountAggregateOutputType | null
   _avg: PlanAvgAggregateOutputType | null
   _sum: PlanSumAggregateOutputType | null
@@ -222,8 +211,7 @@ export type PlanWhereInput = {
   id?: Prisma.StringFilter<"Plan"> | string
   name?: Prisma.StringFilter<"Plan"> | string
   price?: Prisma.DecimalFilter<"Plan"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  maxLinks?: Prisma.IntFilter<"Plan"> | number
-  maxClicks?: Prisma.IntFilter<"Plan"> | number
+  maxTasks?: Prisma.IntFilter<"Plan"> | number
   users?: Prisma.UserListRelationFilter
 }
 
@@ -231,8 +219,7 @@ export type PlanOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  maxLinks?: Prisma.SortOrder
-  maxClicks?: Prisma.SortOrder
+  maxTasks?: Prisma.SortOrder
   users?: Prisma.UserOrderByRelationAggregateInput
 }
 
@@ -243,8 +230,7 @@ export type PlanWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.PlanWhereInput | Prisma.PlanWhereInput[]
   name?: Prisma.StringFilter<"Plan"> | string
   price?: Prisma.DecimalFilter<"Plan"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  maxLinks?: Prisma.IntFilter<"Plan"> | number
-  maxClicks?: Prisma.IntFilter<"Plan"> | number
+  maxTasks?: Prisma.IntFilter<"Plan"> | number
   users?: Prisma.UserListRelationFilter
 }, "id">
 
@@ -252,8 +238,7 @@ export type PlanOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  maxLinks?: Prisma.SortOrder
-  maxClicks?: Prisma.SortOrder
+  maxTasks?: Prisma.SortOrder
   _count?: Prisma.PlanCountOrderByAggregateInput
   _avg?: Prisma.PlanAvgOrderByAggregateInput
   _max?: Prisma.PlanMaxOrderByAggregateInput
@@ -268,16 +253,14 @@ export type PlanScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Plan"> | string
   name?: Prisma.StringWithAggregatesFilter<"Plan"> | string
   price?: Prisma.DecimalWithAggregatesFilter<"Plan"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  maxLinks?: Prisma.IntWithAggregatesFilter<"Plan"> | number
-  maxClicks?: Prisma.IntWithAggregatesFilter<"Plan"> | number
+  maxTasks?: Prisma.IntWithAggregatesFilter<"Plan"> | number
 }
 
 export type PlanCreateInput = {
   id?: string
   name: string
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
-  maxLinks: number
-  maxClicks: number
+  maxTasks: number
   users?: Prisma.UserCreateNestedManyWithoutPlanInput
 }
 
@@ -285,8 +268,7 @@ export type PlanUncheckedCreateInput = {
   id?: string
   name: string
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
-  maxLinks: number
-  maxClicks: number
+  maxTasks: number
   users?: Prisma.UserUncheckedCreateNestedManyWithoutPlanInput
 }
 
@@ -294,8 +276,7 @@ export type PlanUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  maxLinks?: Prisma.IntFieldUpdateOperationsInput | number
-  maxClicks?: Prisma.IntFieldUpdateOperationsInput | number
+  maxTasks?: Prisma.IntFieldUpdateOperationsInput | number
   users?: Prisma.UserUpdateManyWithoutPlanNestedInput
 }
 
@@ -303,8 +284,7 @@ export type PlanUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  maxLinks?: Prisma.IntFieldUpdateOperationsInput | number
-  maxClicks?: Prisma.IntFieldUpdateOperationsInput | number
+  maxTasks?: Prisma.IntFieldUpdateOperationsInput | number
   users?: Prisma.UserUncheckedUpdateManyWithoutPlanNestedInput
 }
 
@@ -312,60 +292,52 @@ export type PlanCreateManyInput = {
   id?: string
   name: string
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
-  maxLinks: number
-  maxClicks: number
+  maxTasks: number
 }
 
 export type PlanUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  maxLinks?: Prisma.IntFieldUpdateOperationsInput | number
-  maxClicks?: Prisma.IntFieldUpdateOperationsInput | number
+  maxTasks?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type PlanUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  maxLinks?: Prisma.IntFieldUpdateOperationsInput | number
-  maxClicks?: Prisma.IntFieldUpdateOperationsInput | number
+  maxTasks?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type PlanCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  maxLinks?: Prisma.SortOrder
-  maxClicks?: Prisma.SortOrder
+  maxTasks?: Prisma.SortOrder
 }
 
 export type PlanAvgOrderByAggregateInput = {
   price?: Prisma.SortOrder
-  maxLinks?: Prisma.SortOrder
-  maxClicks?: Prisma.SortOrder
+  maxTasks?: Prisma.SortOrder
 }
 
 export type PlanMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  maxLinks?: Prisma.SortOrder
-  maxClicks?: Prisma.SortOrder
+  maxTasks?: Prisma.SortOrder
 }
 
 export type PlanMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  maxLinks?: Prisma.SortOrder
-  maxClicks?: Prisma.SortOrder
+  maxTasks?: Prisma.SortOrder
 }
 
 export type PlanSumOrderByAggregateInput = {
   price?: Prisma.SortOrder
-  maxLinks?: Prisma.SortOrder
-  maxClicks?: Prisma.SortOrder
+  maxTasks?: Prisma.SortOrder
 }
 
 export type PlanNullableScalarRelationFilter = {
@@ -413,16 +385,14 @@ export type PlanCreateWithoutUsersInput = {
   id?: string
   name: string
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
-  maxLinks: number
-  maxClicks: number
+  maxTasks: number
 }
 
 export type PlanUncheckedCreateWithoutUsersInput = {
   id?: string
   name: string
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
-  maxLinks: number
-  maxClicks: number
+  maxTasks: number
 }
 
 export type PlanCreateOrConnectWithoutUsersInput = {
@@ -445,16 +415,14 @@ export type PlanUpdateWithoutUsersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  maxLinks?: Prisma.IntFieldUpdateOperationsInput | number
-  maxClicks?: Prisma.IntFieldUpdateOperationsInput | number
+  maxTasks?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type PlanUncheckedUpdateWithoutUsersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  maxLinks?: Prisma.IntFieldUpdateOperationsInput | number
-  maxClicks?: Prisma.IntFieldUpdateOperationsInput | number
+  maxTasks?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -492,8 +460,7 @@ export type PlanSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   id?: boolean
   name?: boolean
   price?: boolean
-  maxLinks?: boolean
-  maxClicks?: boolean
+  maxTasks?: boolean
   users?: boolean | Prisma.Plan$usersArgs<ExtArgs>
   _count?: boolean | Prisma.PlanCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["plan"]>
@@ -502,27 +469,24 @@ export type PlanSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   name?: boolean
   price?: boolean
-  maxLinks?: boolean
-  maxClicks?: boolean
+  maxTasks?: boolean
 }, ExtArgs["result"]["plan"]>
 
 export type PlanSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   price?: boolean
-  maxLinks?: boolean
-  maxClicks?: boolean
+  maxTasks?: boolean
 }, ExtArgs["result"]["plan"]>
 
 export type PlanSelectScalar = {
   id?: boolean
   name?: boolean
   price?: boolean
-  maxLinks?: boolean
-  maxClicks?: boolean
+  maxTasks?: boolean
 }
 
-export type PlanOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "price" | "maxLinks" | "maxClicks", ExtArgs["result"]["plan"]>
+export type PlanOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "price" | "maxTasks", ExtArgs["result"]["plan"]>
 export type PlanInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   users?: boolean | Prisma.Plan$usersArgs<ExtArgs>
   _count?: boolean | Prisma.PlanCountOutputTypeDefaultArgs<ExtArgs>
@@ -539,8 +503,7 @@ export type $PlanPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     id: string
     name: string
     price: runtime.Decimal
-    maxLinks: number
-    maxClicks: number
+    maxTasks: number
   }, ExtArgs["result"]["plan"]>
   composites: {}
 }
@@ -968,8 +931,7 @@ export interface PlanFieldRefs {
   readonly id: Prisma.FieldRef<"Plan", 'String'>
   readonly name: Prisma.FieldRef<"Plan", 'String'>
   readonly price: Prisma.FieldRef<"Plan", 'Decimal'>
-  readonly maxLinks: Prisma.FieldRef<"Plan", 'Int'>
-  readonly maxClicks: Prisma.FieldRef<"Plan", 'Int'>
+  readonly maxTasks: Prisma.FieldRef<"Plan", 'Int'>
 }
     
 

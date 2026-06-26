@@ -53,8 +53,7 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   Plan: 'Plan',
   User: 'User',
-  ShortLink: 'ShortLink',
-  ClickTrack: 'ClickTrack',
+  Task: 'Task',
   Report: 'Report',
   Session: 'Session',
   Account: 'Account',
@@ -81,8 +80,7 @@ export const PlanScalarFieldEnum = {
   id: 'id',
   name: 'name',
   price: 'price',
-  maxLinks: 'maxLinks',
-  maxClicks: 'maxClicks'
+  maxTasks: 'maxTasks'
 } as const
 
 export type PlanScalarFieldEnum = (typeof PlanScalarFieldEnum)[keyof typeof PlanScalarFieldEnum]
@@ -102,26 +100,17 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-export const ShortLinkScalarFieldEnum = {
+export const TaskScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  originalUrl: 'originalUrl',
-  shortCode: 'shortCode',
-  createdAt: 'createdAt'
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  createdAt: 'createdAt',
+  completedAt: 'completedAt'
 } as const
 
-export type ShortLinkScalarFieldEnum = (typeof ShortLinkScalarFieldEnum)[keyof typeof ShortLinkScalarFieldEnum]
-
-
-export const ClickTrackScalarFieldEnum = {
-  id: 'id',
-  shortLinkId: 'shortLinkId',
-  clickedAt: 'clickedAt',
-  referrer: 'referrer',
-  userAgent: 'userAgent'
-} as const
-
-export type ClickTrackScalarFieldEnum = (typeof ClickTrackScalarFieldEnum)[keyof typeof ClickTrackScalarFieldEnum]
+export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
 
 
 export const ReportScalarFieldEnum = {

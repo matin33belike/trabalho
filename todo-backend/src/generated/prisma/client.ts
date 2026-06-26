@@ -52,15 +52,10 @@ export type Plan = Prisma.PlanModel
  */
 export type User = Prisma.UserModel
 /**
- * Model ShortLink
+ * Model Task
  * 
  */
-export type ShortLink = Prisma.ShortLinkModel
-/**
- * Model ClickTrack
- * 
- */
-export type ClickTrack = Prisma.ClickTrackModel
+export type Task = Prisma.TaskModel
 /**
  * Model Report
  * 
