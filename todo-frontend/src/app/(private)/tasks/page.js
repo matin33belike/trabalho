@@ -27,16 +27,14 @@ const API = "http://localhost:5500/api/tasks";
 export default function Tasks() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState("all"); // "all" | "pending" | "completed"
-
-  // Sheet de criar/editar
+  const [filter, setFilter] = useState("all"); 
+ 
   const [sheetOpen, setSheetOpen] = useState(false);
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState({ title: "", description: "" });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
-  // Confirmar exclusão
   const [confirmDelete, setConfirmDelete] = useState(null);
 
   useEffect(() => {
@@ -129,7 +127,6 @@ export default function Tasks() {
 
   return (
     <div className="flex flex-col gap-6">
-      {/* Cabeçalho */}
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Tarefas</h1>
         <Button onClick={openCreate}>
@@ -138,7 +135,6 @@ export default function Tasks() {
         </Button>
       </div>
 
-      {/* Filtros */}
       <div className="flex gap-2">
         {filterButtons.map((btn) => (
           <Button
@@ -152,7 +148,6 @@ export default function Tasks() {
         ))}
       </div>
 
-      {/* Lista */}
       {loading ? (
         <div className="flex flex-col gap-3">
           {[1, 2, 3, 4].map((i) => (
@@ -172,8 +167,7 @@ export default function Tasks() {
             <div
               key={task.id}
               className="flex items-start gap-3 rounded-xl border p-4 transition-colors hover:bg-muted/40"
-            >
-              {/* Botão de toggle status */}
+            > 
               <button
                 className="mt-0.5 shrink-0 text-muted-foreground hover:text-primary transition-colors"
                 onClick={() => handleToggleStatus(task)}
@@ -190,7 +184,6 @@ export default function Tasks() {
                 )}
               </button>
 
-              {/* Conteúdo */}
               <div className="flex-1 min-w-0">
                 <p
                   className={cn(
@@ -213,7 +206,6 @@ export default function Tasks() {
                 </p>
               </div>
 
-              {/* Ações */}
               <div className="flex gap-1 shrink-0">
                 {confirmDelete === task.id ? (
                   <>
@@ -263,7 +255,6 @@ export default function Tasks() {
         </div>
       )}
 
-      {/* Sheet criar/editar */}
       <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
         <SheetContent>
           <SheetHeader>

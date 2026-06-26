@@ -31,7 +31,6 @@ export default function Dashboard() {
       <h1 className="text-2xl font-bold">Dashboard</h1>
 
       <div className="grid gap-4 md:grid-cols-3">
-        {/* Total */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">
@@ -48,7 +47,6 @@ export default function Dashboard() {
           </CardContent>
         </Card>
 
-        {/* Pendentes */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">
@@ -67,7 +65,6 @@ export default function Dashboard() {
           </CardContent>
         </Card>
 
-        {/* Concluídas */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">
@@ -87,7 +84,6 @@ export default function Dashboard() {
         </Card>
       </div>
 
-      {/* Barra de progresso */}
       {!loading && stats?.total > 0 && (
         <Card>
           <CardHeader>

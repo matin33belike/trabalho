@@ -121,7 +121,6 @@
     @apply border-border outline-ring/50;
   }
 
-  /* Suaviza troca de tema nos elementos visuais principais */
   html,
   body,
   button,
